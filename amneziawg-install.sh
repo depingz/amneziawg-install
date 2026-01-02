@@ -277,7 +277,11 @@ function installAmneziaWG() {
 			cp /etc/apt/sources.list /etc/apt/sources.list.d/amneziawg.sources.list
 			sed -i 's/^deb/deb-src/' /etc/apt/sources.list.d/amneziawg.sources.list
 		fi
-		apt-key adv --keyserver keyserver.ubuntu.com --recv-keys 57290828
+		mkdir -p /etc/apt/keyrings
+		gpg --no-default-keyring --keyring /tmp/amnezia-keyring.gpg --keyserver keyserver.ubuntu.com --recv-keys 57290828
+		gpg --no-default-keyring --keyring /tmp/amnezia-keyring.gpg --export 57290828 | sudo gpg --dearmor -o /etc/apt/keyrings/amnezia-archive-keyring.gpg
+		rm /tmp/amnezia-keyring.gpg
+		echo "deb [signed-by=/etc/apt/keyrings/amnezia-archive-keyring.gpg] https://ppa.launchpadcontent.net/amnezia/ppa/ubuntu focal main" | sudo tee /etc/apt/sources.list.d/amneziawg.sources.list > /dev/null
 		echo "deb https://ppa.launchpadcontent.net/amnezia/ppa/ubuntu focal main" >>/etc/apt/sources.list.d/amneziawg.sources.list
 		echo "deb-src https://ppa.launchpadcontent.net/amnezia/ppa/ubuntu focal main" >>/etc/apt/sources.list.d/amneziawg.sources.list
 		apt update
