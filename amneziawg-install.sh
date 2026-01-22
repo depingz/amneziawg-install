@@ -272,7 +272,8 @@ function installAmneziaWG() {
 		apt install -y amneziawg amneziawg-tools qrencode
 	elif [[ ${OS} == 'debian' ]]; then
 	    apt update
-	    apt install -y gnupg2 linux-headers-$(uname -r)
+	    apt install -y gnupg2 linux-headers-$(uname -r) 
+		apt install dirmngr gnupg --install-recommends
 		if ! grep -q "^deb-src" /etc/apt/sources.list; then
 			cp /etc/apt/sources.list /etc/apt/sources.list.d/amneziawg.sources.list
 			sed -i 's/^deb/deb-src/' /etc/apt/sources.list.d/amneziawg.sources.list
