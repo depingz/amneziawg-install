@@ -278,6 +278,7 @@ function installAmneziaWG() {
 			sed -i 's/^deb/deb-src/' /etc/apt/sources.list.d/amneziawg.sources.list
 		fi
 		mkdir -p /etc/apt/keyrings
+		gpg -k
 		gpg --no-default-keyring --keyring /tmp/amnezia-keyring.gpg --keyserver keyserver.ubuntu.com --recv-keys 57290828
 		gpg --no-default-keyring --keyring /tmp/amnezia-keyring.gpg --export 57290828 | sudo gpg --dearmor -o /etc/apt/keyrings/amnezia-archive-keyring.gpg
 		rm /tmp/amnezia-keyring.gpg
